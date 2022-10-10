@@ -1254,11 +1254,16 @@ func (r *ImageRef) RemoveICCProfile() error {
 }
 
 // TransformICCProfile transforms from the embedded ICC profile of the image to the icc profile at the given path.
-func (r *ImageRef) TransformICCProfile(outputProfilePath string) error {
+func (r *ImageRef) TransformICCProfile(outputProfilePath string, inputProfilePath string) error {
 	// If the image has an embedded profile, that will be used and the input profile ignored.
 	// Otherwise, images without an input profile are assumed to use a standard RGB profile.
 	embedded := r.HasICCProfile()
-	inputProfile := SRGBIEC6196621ICCProfilePath
+	var inputProfile string
+	if inputProfilePath != "" {
+		inputProfile = inputProfilePath
+	} else {
+		inputProfile = SRGBIEC6196621ICCProfilePath
+	}
 
 	out, err := vipsICCTransform(r.image, outputProfilePath, inputProfile, IntentPerceptual, 0, embedded)
 	if err != nil {
