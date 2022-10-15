@@ -103,6 +103,7 @@ typedef struct SaveParams {
 
   // WEBP
   BOOL webpLossless;
+  BOOL webpSharpYUV;
   BOOL webpNearLossless;
   int webpReductionEffort;
   char *webpIccProfile;

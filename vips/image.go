@@ -170,6 +170,7 @@ type ExportParams struct {
 	OptimizeScans      bool          // jpeg param
 	QuantTable         int           // jpeg param
 	Speed              int           // avif param
+	SharpYUV           bool          // webp param
 }
 
 // NewDefaultExportParams creates default values for an export when image type is not JPEG, PNG or WEBP.
@@ -218,6 +219,7 @@ func NewDefaultWEBPExportParams() *ExportParams {
 		Format:   ImageTypeWEBP,
 		Quality:  75,
 		Lossless: false,
+		SharpYUV: true,
 		Effort:   4,
 	}
 }
@@ -273,6 +275,7 @@ type WebpExportParams struct {
 	StripMetadata   bool
 	Quality         int
 	Lossless        bool
+	SharpYUV        bool
 	NearLossless    bool
 	ReductionEffort int
 	IccProfile      string
@@ -284,6 +287,7 @@ func NewWebpExportParams() *WebpExportParams {
 	return &WebpExportParams{
 		Quality:         75,
 		Lossless:        false,
+		SharpYUV:        true,
 		NearLossless:    false,
 		ReductionEffort: 4,
 	}
@@ -768,6 +772,7 @@ func (r *ImageRef) Export(params *ExportParams) ([]byte, *ImageMetadata, error) 
 			StripMetadata:   params.StripMetadata,
 			Quality:         params.Quality,
 			Lossless:        params.Lossless,
+			SharpYUV:        params.SharpYUV,
 			ReductionEffort: params.Effort,
 		})
 	case ImageTypePNG:

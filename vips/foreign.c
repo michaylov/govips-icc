@@ -282,6 +282,7 @@ int set_webpsave_options(VipsOperation *operation, SaveParams *params) {
       vips_object_set(VIPS_OBJECT(operation),
                       "strip", params->stripMetadata,
                       "lossless", params->webpLossless,
+                      "smart_subsample", params->webpSharpYUV,
                       "near_lossless", params->webpNearLossless,
                       "reduction_effort", params->webpReductionEffort,
                       "profile", params->webpIccProfile ? params->webpIccProfile : "none",
@@ -493,6 +494,7 @@ static SaveParams defaultSaveParams = {
     .webpNearLossless = FALSE,
     .webpReductionEffort = 4,
     .webpIccProfile = NULL,
+    .webpSharpYUV = TRUE,
 
     .heifLossless = FALSE,
 
